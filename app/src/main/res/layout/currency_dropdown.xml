@@ -2,39 +2,101 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".Currency_Conversion">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/currency"
+    tools:context=".Currency_Conversion"
+    >
+    <RelativeLayout
+        android:id="@+id/convertFromLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/convertFromFlag"
+            android:layout_width="58dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginRight="10dp"
+
+            app:srcCompat="@drawable/euro" />
+
+        <TextView
+            android:id="@+id/convertFromCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginTop="45dp"
+            android:layout_toRightOf="@id/convertFromFlag"
+            android:text="TextView"
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/convertFromCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_below="@id/convertFromCountry"
+            android:layout_toRightOf="@id/convertFromFlag"
+            android:text="TextView"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/amountToConvert"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="35sp"
+            android:layout_marginRight="25dp"
+            android:hint="Enter the amount"
+            android:inputType="number"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
 
 
-    <EditText
-        android:id="@+id/amounteditText"
+    <TextView
+        android:id="@+id/convertto"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:ems="10"
-        android:hint="Enter the number"
-        android:inputType="number" />
+        android:layout_below="@id/convertFromLayout"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="54dp"
+        android:inputType="number"
+        android:text="Convert To"
+        android:textSize="15sp" />
 
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="211dp"
         android:layout_height="40dp"
-        android:layout_toRightOf="@+id/amounteditText"
-
-        android:spinnerMode="dropdown" />
-
-
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="160dp"
+        android:layout_toEndOf="@+id/convertto"
+        android:layout_toRightOf="@+id/convertto"
+        android:spinnerMode="dropdown"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/convertto"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:onClick="convert"
-        android:text="Convert Currency"
-        android:verticalScrollbarPosition="defaultPosition" />
+        android:text="Convert"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"
+        android:text="Convert From" />
 
 
 </RelativeLayout>
