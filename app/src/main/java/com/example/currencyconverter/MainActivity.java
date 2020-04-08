@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,14 +16,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+ /*
+          fetching flag images, country and currency from the listview(in R.layout.currencylist) item that is clicked
+          and passing it to the Currency_Conversion class
+         */
+
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listview;
+    ListView listview;
 
+    //array for flag images
     int [] images = {R.drawable.aus, R.drawable.cad, R.drawable.euro,  R.drawable.bri, R.drawable.ind,
             R.drawable.jap, R.drawable.sng, R.drawable.us};
 
+    //array for countries
     String [] countries = {"Australia", "Canada", "Europe", "Great Britain", "India", "Japan", "Singapore", "U.S.A"};
+    //array for currencies
     String[] currencies = {"AUD", "CAD", "EUR", "GBP", "INR", "JPY", "SGD", "USD"};
 
 
@@ -37,17 +46,19 @@ public class MainActivity extends AppCompatActivity {
         CustomAdapter adapter = new CustomAdapter();
         listview.setAdapter(adapter);
 
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long viewId) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long viewId) {
+                Log.i("position",Integer.toString(position));
+                Log.i("position",countries[position]);
 
-//                CountryListActivity.this.finish();
-                TextView currency = (TextView) view.findViewById(R.id.currency);
+                //passing the fetched flag image, country and currency from the listview to the Currency_Conversion class
+                Intent intent = new Intent(getApplicationContext(), Currency_Conversion.class);
+                intent.putExtra("country",countries[position]);
 
-                String convertfrom = currency.getText().toString();
-
-                Intent intent = new Intent(MainActivity.this, Currency_Conversion.class);
-                //intent.putExtra("convertfrom", currency.getText().toString());
+                intent.putExtra("currency", currencies[position]);
+                intent.putExtra("flag", images[position]);
                 startActivity(intent);
             }
         });
@@ -70,18 +81,19 @@ public class MainActivity extends AppCompatActivity {
             return 0;
         }
 
+        //fetching flag images, country and currency from the listview
         @Override
         public View getView(int pos, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.currencylistelement,null);
+            View view1 = getLayoutInflater().inflate(R.layout.currencylistelement,null);
 
-            ImageView flag = (ImageView)view.findViewById(R.id.flag);
-            TextView country = (TextView)view.findViewById(R.id.country);
-            TextView currency = (TextView)view.findViewById(R.id.currency);
+            ImageView flag = view1.findViewById(R.id.flag);
+            TextView country = view1.findViewById(R.id.country);
+            TextView currency = view1.findViewById(R.id.currency);
 
             flag.setImageResource(images[pos]);
             country.setText(countries[pos]);
             currency.setText(currencies[pos]);
-            return view;
+            return view1;
         }
     }
 }
