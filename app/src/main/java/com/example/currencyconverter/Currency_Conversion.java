@@ -2,18 +2,24 @@ package com.example.currencyconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Currency_Conversion extends AppCompatActivity {
 
+    TextView convertfromCountry, convertfromCurrency;
+    ImageView convertfromFlag;
     public void convert (View view){
-        EditText amountEntered= findViewById(R.id.amounteditText);
+        EditText amountEntered= findViewById(R.id.amountToConvert);
         Spinner mySpinner = findViewById(R.id.spinner1);
         String ToCurrency = mySpinner.getSelectedItem().toString();
 
@@ -58,6 +64,16 @@ public class Currency_Conversion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.currency_dropdown);
+
+
+        convertfromCountry = findViewById(R.id.convertFromCountry);
+        convertfromCurrency = findViewById(R.id.convertFromCurrency);
+        convertfromFlag = findViewById(R.id.convertFromFlag);
+
+        Intent intent = getIntent();
+        convertfromCountry.setText(intent.getStringExtra("country"));
+        convertfromCurrency.setText(intent.getStringExtra("currency"));
+        convertfromFlag.setImageResource(intent.getIntExtra("flag",0));
 
         Spinner mySpinner = findViewById(R.id.spinner1);
         ArrayAdapter<String> myAdapter= new ArrayAdapter(Currency_Conversion.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.currencies));
