@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">मुद्रा परिवर्तक</string>
+    <string name="Convert">धर्मांतरित</string>
+    <string name="enter_amount">राशि दर्ज करें</string>
+    <string name="Convert_To">में बदलें</string>
+
+
+</resources>
