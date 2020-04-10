@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 
  /*
           fetching flag images, country and currency from the listview(in R.layout.currencylist) item that is clicked
@@ -24,6 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     ListView listview;
+    private DBManager dbManager;
+
+
 
     //array for flag images
     int [] images = {R.drawable.aus, R.drawable.cad, R.drawable.euro,  R.drawable.bri, R.drawable.ind,
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     class CustomAdapter extends BaseAdapter{

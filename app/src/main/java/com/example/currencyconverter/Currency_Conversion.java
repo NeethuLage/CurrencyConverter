@@ -125,8 +125,16 @@ public class Currency_Conversion extends AppCompatActivity {
                 displayAmt = conRate;
                 break;
         }
+        String strDouble = String.format("%.2f", displayAmt);
+        double resultAmount = Double.parseDouble(strDouble);
 
-        Toast.makeText(Currency_Conversion.this,String.valueOf(displayAmt),Toast.LENGTH_LONG).show();
+        Toast.makeText(Currency_Conversion.this,String.valueOf(resultAmount),Toast.LENGTH_LONG).show();
+
+        DBManager DBManagerOBJ = new DBManager(this);
+        DBManagerOBJ.open();
+        int TestVal = 2;
+        DBManagerOBJ.insertSearch(cfCurrency,ToCurrency,amountDouble,resultAmount);
+
 
     }
 
@@ -134,6 +142,8 @@ public class Currency_Conversion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.currency_dropdown);
+
+
 
         convertfromCountry = findViewById(R.id.convertFromCountry);
         conertfromCurrency = findViewById(R.id.convertFromCurrency);
