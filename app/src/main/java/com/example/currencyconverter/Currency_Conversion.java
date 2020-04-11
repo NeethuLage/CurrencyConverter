@@ -164,4 +164,10 @@ public class Currency_Conversion extends AppCompatActivity {
         fDataobj.execute();
 
     }
+
+    public void History(View view) {
+        Intent intent = new Intent(getApplicationContext(), ConversionHistory.class);
+        startActivity(intent);
+
+    }
 }

@@ -54,7 +54,7 @@ public class DBManager {
 
     public Cursor fetch() {
         String[] columns = new String[] { DatabaseHelper.ID, DatabaseHelper.FROMCURRENCY, DatabaseHelper.TOCURRENCY, DatabaseHelper.AMOUNTENTERED , DatabaseHelper.RESULT };
-        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, columns, null, null, null, null, DatabaseHelper.ID +" DESC" );
 
 
         if (cursor != null) {
