@@ -160,7 +160,7 @@ public class Currency_Conversion extends AppCompatActivity {
 
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
-        fetchData fDataobj =  new fetchData();
+        fetchData fDataobj =  new fetchData(Currency_Conversion.this);
         fDataobj.execute();
 
     }
