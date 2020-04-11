@@ -2,7 +2,9 @@ package com.example.currencyconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +23,16 @@ import org.json.JSONObject;
  */
 
 public class Currency_Conversion extends AppCompatActivity {
-
+//
+//    EditText AmtToConvert;
+//    Spinner Spinner1;
+//    TextView Result;
+//
+      SharedPreferences sharedPreferences;
+      static final String MyPREFERENCES = "CONVERSION_PRE";
+      static final String AMT_KEY = "AmountKey";
+      static final String FROM_CURRENCY_KEY = "FromCurrencyKey";
+      static final String TO_CUURENCY_KEY = "ToCurrencyKey";
 
     String rates; //to store the jason object rates
     double conRate; //to store the calculated eur rate
@@ -36,6 +47,8 @@ public class Currency_Conversion extends AppCompatActivity {
     ImageView convertfromFlag;
 
     public static String fetData; // the variable that captures the values from the web api passed by the fetchData.java class
+
+
 
 
     //onclick function on convert button in R.layout.currency_dropdown
@@ -135,6 +148,13 @@ public class Currency_Conversion extends AppCompatActivity {
         int TestVal = 2;
         DBManagerOBJ.insertSearch(cfCurrency,ToCurrency,amountDouble,resultAmount);
 
+        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor Sharededitor = sharedPreferences.edit();
+        Sharededitor.putString(AMT_KEY, String.valueOf(amountDouble));
+        Sharededitor.putString(FROM_CURRENCY_KEY, cfCurrency);
+        Sharededitor.putString(TO_CUURENCY_KEY, ToCurrency);
+        Sharededitor.commit();
+
 
     }
 
@@ -142,7 +162,21 @@ public class Currency_Conversion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.currency_dropdown);
-
+//
+//        AmtToConvert = (EditText) findViewById(R.id.amountToConvert);
+////        Spinner1 = (Spinner) findViewById(R.id.spinner1);
+////        Result = (TextView) findViewById(R.id.result);
+//
+//        sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+////        if (sharedPreferences.contains(String.valueOf(AmtToConvert))) {
+////            String.valueOf(amountToConvert).compareTo(sharedPreferences.getString(String.valueOf(AmtToConvert), ""));
+////        }
+////        if (sharedPreferences.contains(String.valueOf(Spinner1))) {
+////            spinner1.compareTo(sharedPreferences.getString(String.valueOf(Spinner1), ""));
+////        }
+//        if (sharedPreferences.contains(String.valueOf(Result))) {
+//            result.compareTo(sharedPreferences.getString(String.valueOf(Result), ""));
+//        }
 
 
         convertfromCountry = findViewById(R.id.convertFromCountry);
@@ -160,6 +194,25 @@ public class Currency_Conversion extends AppCompatActivity {
 
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
+
+        // Reading from SharedPreferences
+        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String AMT_KEY_STR = sharedPreferences.getString(AMT_KEY, "0");
+       // Log.i("DHDHDHHDD",AMT_KEY_STR);
+        String TO_CURRENCY_STR = sharedPreferences.getString(TO_CUURENCY_KEY, "USD");
+        EditText amountEntered = findViewById(R.id.amountToConvert);
+        amountEntered.setText(AMT_KEY_STR);
+
+        // Code to select the ToCurrency variable from the  Dropdown menu or spinner
+        Spinner SpinnerToCurrency = (Spinner) findViewById(R.id.spinner1);
+        for(int i=0; i < myAdapter.getCount(); i++) {
+            if(TO_CURRENCY_STR.trim().equals(myAdapter.getItem(i).toString())){
+                SpinnerToCurrency.setSelection(i);
+                break;
+            }
+        }
+
+
         fetchData fDataobj =  new fetchData();
         fDataobj.execute();
 
@@ -170,4 +223,7 @@ public class Currency_Conversion extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
+
 }
