@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        // Adding items
+
         final ArrayAdapter<String> finalArrayAdapter = arrayAdapter;
         btnadd.setOnClickListener(new View.OnClickListener(){
 
@@ -100,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                 finalArrayAdapter.notifyDataSetChanged();
             }
         });
+
+                // Deleting Items
 
         final ArrayAdapter<String> finalArrayAdapter1 = arrayAdapter;
         btndel.setOnClickListener(new OnClickListener() {
