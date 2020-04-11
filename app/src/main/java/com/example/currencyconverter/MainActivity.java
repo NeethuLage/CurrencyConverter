@@ -9,10 +9,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Button;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 
  /*
@@ -21,7 +30,10 @@ import android.widget.TextView;
          */
 
 public class MainActivity extends AppCompatActivity {
-
+    ArrayList<String> list;
+    EditText editText;
+    Button btnadd, btndel;
+    ArrayAdapter<String> arrayAdapter;
     ListView listview;
     private DBManager dbManager;
 
@@ -41,17 +53,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.currencylist);
 
+
+        setContentView(R.layout.currencylist);
 
         listview = findViewById(R.id.listview);
         CustomAdapter adapter = new CustomAdapter();
         listview.setAdapter(adapter);
+        list=new ArrayList<String>();
+
+        btnadd = (Button) findViewById(R.id.add);
+        btndel = (Button) findViewById(R.id.del);
+
+        editText=(EditText) findViewById(R.id.search);
+       ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_expandable_list_item_1,list);
+
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,list);
+
 
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long viewId) {
+            public void onItemClick(AdapterView<?> adapter2View, View view, int position, long viewId) {
                 Log.i("position",Integer.toString(position));
                 Log.i("position",countries[position]);
 
@@ -63,12 +86,50 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("flag", images[position]);
                 startActivity(intent);
             }
+
         });
 
+        final ArrayAdapter<String> finalArrayAdapter = arrayAdapter;
+        btnadd.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                String names=editText.getText().toString();
+                list.add(names);
+                listview.setAdapter(finalArrayAdapter);
+                finalArrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        final ArrayAdapter<String> finalArrayAdapter1 = arrayAdapter;
+        btndel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for(int i=0;i<list.size();i++){
+
+                    String getnames = editText.getText().toString();
+                    if(list.get(i).equals(getnames)){
+                        list.remove(i);
+                        finalArrayAdapter1.notifyDataSetChanged();
+                        break;
+                    }else
+                        Toast.makeText(MainActivity.this, "No Match Found!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
 
     }
 
     class CustomAdapter extends BaseAdapter{
+
+        public CustomAdapter() {
+
+        }
+
+        public CustomAdapter(MainActivity mainActivity, int simple_list_item_multiple_choice, ArrayList list) {
+        }
 
         @Override
         public int getCount() {
