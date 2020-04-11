@@ -23,11 +23,6 @@ import org.json.JSONObject;
  */
 
 public class Currency_Conversion extends AppCompatActivity {
-//
-//    EditText AmtToConvert;
-//    Spinner Spinner1;
-//    TextView Result;
-//
       SharedPreferences sharedPreferences;
       static final String MyPREFERENCES = "CONVERSION_PRE";
       static final String AMT_KEY = "AmountKey";
@@ -162,21 +157,6 @@ public class Currency_Conversion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.currency_dropdown);
-//
-//        AmtToConvert = (EditText) findViewById(R.id.amountToConvert);
-////        Spinner1 = (Spinner) findViewById(R.id.spinner1);
-////        Result = (TextView) findViewById(R.id.result);
-//
-//        sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-////        if (sharedPreferences.contains(String.valueOf(AmtToConvert))) {
-////            String.valueOf(amountToConvert).compareTo(sharedPreferences.getString(String.valueOf(AmtToConvert), ""));
-////        }
-////        if (sharedPreferences.contains(String.valueOf(Spinner1))) {
-////            spinner1.compareTo(sharedPreferences.getString(String.valueOf(Spinner1), ""));
-////        }
-//        if (sharedPreferences.contains(String.valueOf(Result))) {
-//            result.compareTo(sharedPreferences.getString(String.valueOf(Result), ""));
-//        }
 
 
         convertfromCountry = findViewById(R.id.convertFromCountry);
