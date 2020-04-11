@@ -20,15 +20,16 @@ public class ConversionHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversionhistory);
 
+
         ConversionHistoryList = findViewById(R.id.cclistview);
+
+        //creating an object to get data from DBManager
         DBMangerObj = new DBManager(this);
         DBMangerObj.open();
         populateListHist();
     }
 
     private void populateListHist()
-
-
     {
         //fetching data from DBManager
         Cursor CursorData = DBMangerObj.fetch();
@@ -39,7 +40,6 @@ public class ConversionHistory extends AppCompatActivity {
         if (CursorData != null) {
             for (int i = 0; i < CursorData.getCount(); i++) {
 
-
                 fromCurrency = CursorData.getString(CursorData.getColumnIndex(DatabaseHelper.FROMCURRENCY));
                 toCurrency = CursorData.getString(CursorData.getColumnIndex(DatabaseHelper.TOCURRENCY));
                 enteredAmt = CursorData.getDouble(CursorData.getColumnIndex(DatabaseHelper.AMOUNTENTERED));
@@ -48,17 +48,15 @@ public class ConversionHistory extends AppCompatActivity {
 
                 ConverList.add(ConversionObj);
                 CursorData.moveToNext();
-
             }
 
+            //creating adapter object
             ItemsAdapter adapter = new ItemsAdapter(this, ConverList);
 
-
+            //retrieving from resources
             ListView listView = (ListView) findViewById(R.id.cclistview);
             listView.setAdapter(adapter);
-
         }
-
         //DBMangerObj
     }
 }

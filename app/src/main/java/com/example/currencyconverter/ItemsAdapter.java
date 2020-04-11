@@ -34,6 +34,7 @@ public class ItemsAdapter  extends ArrayAdapter<Conversion> {
         TextView ToCurrencyName = (TextView) convertView.findViewById(R.id.ToCurrencyName);
         TextView Heading = (TextView) convertView.findViewById(R.id.HeadingText);
 
+        //getting the values and inserting
         HeadingText = ConversionItem.fromCurrency +" => "+  ConversionItem.toCurrency;
         FromText = ConversionItem.fromCurrency+":"+ConversionItem.EnteredAmount;
         ToText = ConversionItem.toCurrency+":"+ConversionItem.ResultAmount;

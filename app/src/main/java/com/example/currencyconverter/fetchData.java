@@ -26,10 +26,12 @@ public class fetchData extends AsyncTask<Void, Integer ,Void> {
         nContext = context;
     }
 
+    //runs befor the background method is called
+    //setting up the progress bar
     @Override
     protected void onPreExecute() {
 
-         //setting up the progress bar
+
 
         final ProgressDialog dialog= ProgressDialog.show(nContext,"", "Please wait....",true);
         new Thread(new Runnable() {
@@ -63,7 +65,7 @@ public class fetchData extends AsyncTask<Void, Integer ,Void> {
         progbar.setProgress(values[0]);
     }
 
-    // TO fetch data from the web api
+    // TO fetch data from the web api running in the background
     @Override
     protected Void doInBackground(Void... voids) {
         //int progresscount = 0;
@@ -85,6 +87,7 @@ public class fetchData extends AsyncTask<Void, Integer ,Void> {
         return null;
     }
 
+    //conversion of currency that runs after background thread finishes
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);

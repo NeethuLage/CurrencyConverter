@@ -23,6 +23,7 @@ import org.json.JSONObject;
  */
 
 public class Currency_Conversion extends AppCompatActivity {
+
       SharedPreferences sharedPreferences;
       static final String MyPREFERENCES = "CONVERSION_PRE";
       static final String AMT_KEY = "AmountKey";
@@ -133,16 +134,21 @@ public class Currency_Conversion extends AppCompatActivity {
                 displayAmt = conRate;
                 break;
         }
+
+        //converting to double
         String strDouble = String.format("%.2f", displayAmt);
         double resultAmount = Double.parseDouble(strDouble);
 
+        //shows the converted currency value
         Toast.makeText(Currency_Conversion.this,String.valueOf(resultAmount),Toast.LENGTH_LONG).show();
 
+        //creating an object
         DBManager DBManagerOBJ = new DBManager(this);
         DBManagerOBJ.open();
         int TestVal = 2;
         DBManagerOBJ.insertSearch(cfCurrency,ToCurrency,amountDouble,resultAmount);
 
+        //store and retreive the amount entered last time
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor Sharededitor = sharedPreferences.edit();
         Sharededitor.putString(AMT_KEY, String.valueOf(amountDouble));
@@ -158,25 +164,28 @@ public class Currency_Conversion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.currency_dropdown);
 
-
+        //retrieving data from resources
         convertfromCountry = findViewById(R.id.convertFromCountry);
         conertfromCurrency = findViewById(R.id.convertFromCurrency);
         convertfromFlag = findViewById(R.id.convertFromFlag);
 
+
+        //retrieve the data from MainActivity
         Intent intent = getIntent();
         cfCurrency = intent.getStringExtra("currency");
         convertfromCountry.setText(intent.getStringExtra("country"));
         conertfromCurrency.setText(cfCurrency);
         convertfromFlag.setImageResource(intent.getIntExtra("flag",0));
 
+        //retrieving spinner1 from resources
         Spinner mySpinner = findViewById(R.id.spinner1);
         ArrayAdapter<String> myAdapter= new ArrayAdapter(Currency_Conversion.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.currencies));
 
+        //setting the dropdown
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
-<<<<<<< HEAD
+
         fetchData fDataobj =  new fetchData(Currency_Conversion.this);
-=======
 
         // Reading from SharedPreferences
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -195,13 +204,14 @@ public class Currency_Conversion extends AppCompatActivity {
             }
         }
 
-
-        fetchData fDataobj =  new fetchData();
->>>>>>> origin/master
-        fDataobj.execute();
+        //fetch data from Currency_Conversion
+        fetchData fdata =  new fetchData(Currency_Conversion.this);
+        fdata.execute();
 
     }
 
+
+    //shows the history of the conversions
     public void History(View view) {
         Intent intent = new Intent(getApplicationContext(), ConversionHistory.class);
         startActivity(intent);

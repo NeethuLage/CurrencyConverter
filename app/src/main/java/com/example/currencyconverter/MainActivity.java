@@ -31,8 +31,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> list;
-    EditText editText;
-    Button btnadd, btndel;
     ArrayAdapter<String> arrayAdapter;
     ListView listview;
     private DBManager dbManager;
@@ -53,20 +51,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.currencylist);
 
+        //get data by the adapter
         listview = findViewById(R.id.listview);
         CustomAdapter adapter = new CustomAdapter();
+
+        //Apply the adapter to the listview
         listview.setAdapter(adapter);
         list=new ArrayList<String>();
-
-        btnadd = (Button) findViewById(R.id.add);
-        btndel = (Button) findViewById(R.id.del);
-
-        editText=(EditText) findViewById(R.id.search);
-       ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_expandable_list_item_1,list);
 
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,list);
 
@@ -75,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter2View, View view, int position, long viewId) {
+
+                //logging informational messages
                 Log.i("position",Integer.toString(position));
                 Log.i("position",countries[position]);
 
@@ -89,40 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        // Adding items
 
-        final ArrayAdapter<String> finalArrayAdapter = arrayAdapter;
-        btnadd.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                String names=editText.getText().toString();
-                list.add(names);
-                listview.setAdapter(finalArrayAdapter);
-                finalArrayAdapter.notifyDataSetChanged();
-            }
-        });
-
-                // Deleting Items
-
-        final ArrayAdapter<String> finalArrayAdapter1 = arrayAdapter;
-        btndel.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                for(int i=0;i<list.size();i++){
-
-                    String getnames = editText.getText().toString();
-                    if(list.get(i).equals(getnames)){
-                        list.remove(i);
-                        finalArrayAdapter1.notifyDataSetChanged();
-                        break;
-                    }else
-                        Toast.makeText(MainActivity.this, "No Match Found!", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
 
     }
 
@@ -135,16 +97,22 @@ public class MainActivity extends AppCompatActivity {
         public CustomAdapter(MainActivity mainActivity, int simple_list_item_multiple_choice, ArrayList list) {
         }
 
+
+        //returns length or number of rows of image
         @Override
         public int getCount() {
             return images.length;
         }
 
+
+        //returns the item for the position
         @Override
         public Object getItem(int position) {
             return null;
         }
 
+
+        //get the id for the provided position
         @Override
         public long getItemId(int position) {
             return 0;
@@ -155,13 +123,22 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int pos, View view, ViewGroup viewGroup) {
             View view1 = getLayoutInflater().inflate(R.layout.currencylistelement,null);
 
+            //retreiving flag from resources
             ImageView flag = view1.findViewById(R.id.flag);
+
+            //retreiving country from resources
             TextView country = view1.findViewById(R.id.country);
+
+            //retreiving currency from resources
             TextView currency = view1.findViewById(R.id.currency);
 
+
+            //setting the image resource and the text
             flag.setImageResource(images[pos]);
             country.setText(countries[pos]);
             currency.setText(currencies[pos]);
+
+            //returning view1
             return view1;
         }
     }
