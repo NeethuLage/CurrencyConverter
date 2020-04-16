@@ -1,9 +1,5 @@
 package com.example.currencyconverter;
 
-/**
- * Created by Amit Modak.
- */
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;

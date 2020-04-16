@@ -19,45 +19,38 @@ public class fetchData extends AsyncTask<Void, Integer ,Void> {
 
     String data = ""; // to get the data from the web api
     private ProgressDialog progbar; // the progressbar
-    private Context nContext = null;
+    private Context context;
 
-    fetchData(Context context)
-    {
-        nContext = context;
+    public fetchData(Context context) {
+        this.context = context;
     }
 
-    //runs befor the background method is called
-    //setting up the progress bar
+
     @Override
     protected void onPreExecute() {
+        // setting up the progress bar
 
+        progbar = new ProgressDialog(context);
+        progbar.setCancelable(true);
+        progbar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progbar.setProgressStyle(0);
+        progbar.setMax(100);
+        progbar.setMessage(getString(R.string.Progessbar));
 
-
-        final ProgressDialog dialog= ProgressDialog.show(nContext,"", "Please wait....",true);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                    dialog.dismiss();
-                }
-                catch(InterruptedException ex){
-                    ex.printStackTrace();
-                }
+        // make a button.
+        progbar.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
-        }).start();
-
-
-
+        });
+        progbar.show();
         super.onPreExecute();
-//
-//
     }
 
-//    private CharSequence getString(int progessbar) {
-//        return null;
-//    }
-//
+    private CharSequence getString(int progessbar) {
+        return null;
+    }
+
     // to update the progressbar
     @Override
     public void onProgressUpdate(Integer... values) {
@@ -65,7 +58,7 @@ public class fetchData extends AsyncTask<Void, Integer ,Void> {
         progbar.setProgress(values[0]);
     }
 
-    // TO fetch data from the web api running in the background
+    // TO fetch data from the web api
     @Override
     protected Void doInBackground(Void... voids) {
         //int progresscount = 0;
@@ -87,13 +80,12 @@ public class fetchData extends AsyncTask<Void, Integer ,Void> {
         return null;
     }
 
-    //conversion of currency that runs after background thread finishes
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
         //dismiss the cancel button
-        //progbar.dismiss();
+        progbar.dismiss();
 
         Currency_Conversion.fetData = this.data;
         Log.i("fwtcdhdhdhdh", Currency_Conversion.fetData);
