@@ -143,7 +143,7 @@ public class Currency_Conversion extends AppCompatActivity {
         double resultAmount = Double.parseDouble(strDouble);
 
         //shows the converted currency value
-        Toast.makeText(Currency_Conversion.this,String.valueOf(resultAmount),Toast.LENGTH_LONG).show();
+        Toast.makeText(Currency_Conversion.this,"Conversion Successfull",Toast.LENGTH_LONG).show();
 
         //creating an object
         DBManager DBManagerOBJ = new DBManager(this);

@@ -7,6 +7,7 @@
     android:background="@drawable/currency"
     tools:context=".Currency_Conversion"
     >
+
     <RelativeLayout
         android:id="@+id/convertFromLayout"
         android:layout_width="wrap_content"
