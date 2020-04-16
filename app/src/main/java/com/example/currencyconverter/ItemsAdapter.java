@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class ItemsAdapter  extends ArrayAdapter<Conversion> {

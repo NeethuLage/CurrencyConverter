@@ -174,9 +174,9 @@ public class Currency_Conversion extends AppCompatActivity {
 
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
-<<<<<<< HEAD
+        // HEAD
         fetchData fDataobj =  new fetchData(Currency_Conversion.this);
-=======
+//
 
         // Reading from SharedPreferences
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -196,9 +196,9 @@ public class Currency_Conversion extends AppCompatActivity {
         }
 
 
-        fetchData fDataobj =  new fetchData();
->>>>>>> origin/master
-        fDataobj.execute();
+        fetchData fDataobj1 =  new fetchData(Currency_Conversion.this);
+        //origin/master
+        fDataobj1.execute();
 
     }
 
@@ -207,7 +207,5 @@ public class Currency_Conversion extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
 
 }

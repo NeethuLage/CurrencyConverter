@@ -1,8 +1,6 @@
 package com.example.currencyconverter;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import java.io.BufferedReader;

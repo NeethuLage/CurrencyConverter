@@ -3,6 +3,9 @@
     <string name="Convert">CONVERT</string>
     <string name="enter_amount">Enter the amount</string>
     <string name="Convert_To">Convert to</string>
+    <string name="item1">Item1</string>
+    <string name="subitem1">Subitem1</string>
+    <string name="subitem2">Subitem2</string>
     <string-array name="currencies">
 
         <item>USD</item>
