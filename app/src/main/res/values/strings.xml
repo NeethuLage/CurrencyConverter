@@ -3,17 +3,16 @@
     <string name="Convert">CONVERT</string>
     <string name="enter_amount">Enter the amount</string>
     <string name="Convert_To">Convert to</string>
-    <string name="cancel">Cancel</string>
-    <string name="Progessbar">Processing.....</string>
+    <string name="Convertbtn"></string>
     <string-array name="currencies">
 
+        <item>USD</item>
         <item>AUD</item>
-        <item>CAD</item>
-        <item>EUR</item>
         <item>GBP</item>
+        <item>CAD</item>
         <item>INR</item>
         <item>JPY</item>
         <item>SGD</item>
-        <item>USD</item>
     </string-array>
+
 </resources>
