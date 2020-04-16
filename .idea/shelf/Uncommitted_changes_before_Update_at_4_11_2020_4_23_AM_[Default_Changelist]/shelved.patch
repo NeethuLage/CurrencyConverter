@@ -1,0 +1,19 @@
+Index: app/src/main/res/layout/conversionhistory.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:orientation=\"vertical\" android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@drawable/currency\">\r\n\r\n    <ListView\r\n        android:id=\"@+id/cclistview\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\" />\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/conversionhistory.xml	(revision 589ef8634563e1d203d78d4f1ba4af7b7ba2a4bd)
++++ app/src/main/res/layout/conversionhistory.xml	(date 1586578022961)
+@@ -7,5 +7,7 @@
+     <ListView
+         android:id="@+id/cclistview"
+         android:layout_width="match_parent"
+-        android:layout_height="match_parent" />
++        android:layout_height="match_parent">
++    </ListView>
++
+ </LinearLayout>
+\ No newline at end of file

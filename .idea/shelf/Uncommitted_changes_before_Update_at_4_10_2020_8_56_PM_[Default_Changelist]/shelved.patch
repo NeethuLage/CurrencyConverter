@@ -1,0 +1,52 @@
+Index: app/src/main/res/layout/currency_dropdown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@drawable/currency\"\r\n    tools:context=\".Currency_Conversion\"\r\n    >\r\n    <RelativeLayout\r\n        android:id=\"@+id/convertFromLayout\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <ImageView\r\n            android:id=\"@+id/convertFromFlag\"\r\n            android:layout_width=\"58dp\"\r\n            android:layout_height=\"56dp\"\r\n            android:layout_marginLeft=\"10dp\"\r\n            android:layout_marginRight=\"10dp\"\r\n            app:srcCompat=\"@drawable/euro\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/convertFromCountry\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"28dp\"\r\n            android:layout_toRightOf=\"@id/convertFromFlag\"\r\n            android:text=\"TextView\"\r\n            android:textSize=\"18sp\"\r\n            android:textStyle=\"bold|italic\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/convertFromCurrency\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"28dp\"\r\n            android:layout_below=\"@id/convertFromCountry\"\r\n            android:layout_toRightOf=\"@id/convertFromFlag\"\r\n            android:text=\"TextView\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"14sp\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/amountToConvert\"\r\n            android:layout_width=\"150dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_alignParentRight=\"true\"\r\n            android:layout_marginTop=\"25sp\"\r\n            android:layout_marginRight=\"20dp\"\r\n            android:textSize=\"14sp\"\r\n            android:hint=\"Enter the amount\"\r\n            android:inputType=\"number\"\r\n            android:text=\"@string/enter_amount\"/>\r\n\r\n    </RelativeLayout>\r\n\r\n\r\n    <TextView\r\n        android:id=\"@+id/convertto\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_below=\"@id/convertFromLayout\"\r\n        android:layout_marginLeft=\"25dp\"\r\n        android:layout_marginTop=\"25sp\"\r\n        android:inputType=\"number\"\r\n        android:text=\"@string/Convert_To\"\r\n        android:textSize=\"15sp\" />\r\n\r\n    <Spinner\r\n        android:id=\"@+id/spinner1\"\r\n        android:layout_width=\"211dp\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_below=\"@id/convertFromLayout\"\r\n        android:layout_centerInParent=\"false\"\r\n        android:layout_marginTop=\"25sp\"\r\n        android:layout_toRightOf=\"@+id/convertto\"\r\n        android:spinnerMode=\"dropdown\"\r\n        android:visibility=\"visible\" />\r\n\r\n\r\n    <Button\r\n        android:id=\"@+id/button\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_below=\"@id/convertto\"\r\n        android:layout_marginTop=\"20sp\"\r\n        android:layout_centerHorizontal=\"true\"\r\n        android:onClick=\"convert\"\r\n        android:textSize=\"30sp\"\r\n        android:text=\"@string/Convert\"\r\n        />\r\n\r\n\r\n\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/currency_dropdown.xml	(revision 220c6f89dd7d80c15a5b0dec87353cf33926d27d)
++++ app/src/main/res/layout/currency_dropdown.xml	(date 1586560895133)
+@@ -48,8 +48,8 @@
+             android:layout_marginRight="20dp"
+             android:textSize="14sp"
+             android:hint="Enter the amount"
+-            android:inputType="number"
+-            android:text="@string/enter_amount"/>
++            android:inputType="number"/>
++           // android:onClick="amountToConvert"/>
+ 
+     </RelativeLayout>
+ 
+@@ -74,7 +74,8 @@
+         android:layout_marginTop="25sp"
+         android:layout_toRightOf="@+id/convertto"
+         android:spinnerMode="dropdown"
+-        android:visibility="visible" />
++        android:visibility="visible"/>
++<!--    &#45;&#45;android:onClick="spinner1"&ndash;&gt;-->
+ 
+ 
+     <Button
+@@ -84,12 +85,18 @@
+         android:layout_below="@id/convertto"
+         android:layout_marginTop="20sp"
+         android:layout_centerHorizontal="true"
+-        android:onClick="convert"
+         android:textSize="30sp"
++        android:onClick="convert"
+         android:text="@string/Convert"
+         />
+ 
+-
++    <TextView
++        android:id="@+id/result"
++        android:layout_width="match_parent"
++        android:layout_height="50dp"
++        android:layout_below="@id/button"
++        android:layout_marginTop="50dp"/>
++<!--       // android:onClick="result"/>-->
+ 
+ 
+ </RelativeLayout>
+\ No newline at end of file

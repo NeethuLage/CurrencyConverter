@@ -1,0 +1,85 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.currencyconverter\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\"/>\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\">\r\n        <activity android:name=\".MainActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".Currency_Conversion\"/>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 220c6f89dd7d80c15a5b0dec87353cf33926d27d)
++++ app/src/main/AndroidManifest.xml	(date 1586561019989)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
+     package="com.example.currencyconverter">
+ 
+     <uses-permission android:name="android.permission.INTERNET"/>
+Index: app/src/main/java/com/example/currencyconverter/Currency_Conversion.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.currencyconverter;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.EditText;\r\nimport android.widget.ImageView;\r\nimport android.widget.Spinner;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\n/*\r\n       converting the rates\r\n */\r\n\r\npublic class Currency_Conversion extends AppCompatActivity {\r\n\r\n\r\n    String rates; //to store the jason object rates\r\n    double conRate; //to store the calculated eur rate\r\n    JSONObject jsRateObj; //jason object\r\n    String ToCurrency;  // the currency to which the conversion is to be performed. Fetched from the dropdown list\r\n    double CAD_Rate, USD_Rate, AUD_Rate, GBP_Rate, INR_Rate, JPY_Rate, SGD_Rate; // the calculated eur rate converted to the rates of conversion of each currency\r\n    String cfCurrency;  // the currency from which the conversion should be performed. Fetched from the intent passed from mainactivity(that is from the listview)\r\n\r\n    double amountDouble =0.0;\r\n\r\n    TextView convertfromCountry, conertfromCurrency;\r\n    ImageView convertfromFlag;\r\n\r\n    public static String fetData; // the variable that captures the values from the web api passed by the fetchData.java class\r\n\r\n\r\n    //onclick function on convert button in R.layout.currency_dropdown\r\n    public void convert (View view){\r\n\r\n        EditText amountEntered= findViewById(R.id.amountToConvert);\r\n        Spinner mySpinner = findViewById(R.id.spinner1);\r\n        ToCurrency = mySpinner.getSelectedItem().toString();\r\n\r\n        amountDouble= Double.parseDouble(amountEntered.getText().toString());\r\n\r\n        // fetching the conversion values of each currency from the jason object get from the web api with euro as the base.\r\n        JSONObject jsObj = null;\r\n        try {\r\n            jsObj = new JSONObject(fetData);\r\n            rates = jsObj.getString(\"rates\");\r\n            jsRateObj = new JSONObject(rates);\r\n            CAD_Rate = Double.valueOf(jsRateObj.getString(\"CAD\"));\r\n            USD_Rate = Double.valueOf(jsRateObj.getString(\"USD\"));\r\n            AUD_Rate = Double.valueOf(jsRateObj.getString(\"AUD\"));\r\n            GBP_Rate = Double.valueOf(jsRateObj.getString(\"GBP\"));\r\n            INR_Rate = Double.valueOf(jsRateObj.getString(\"INR\"));\r\n            JPY_Rate = Double.valueOf(jsRateObj.getString(\"JPY\"));\r\n            SGD_Rate = Double.valueOf(jsRateObj.getString(\"SGD\"));\r\n            Log.i(\"GBP_Rate\", String.valueOf(GBP_Rate));\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        double displayAmt = 0.0;\r\n\r\n        //the entered value to be converted is changed to euro, since the web api only supports euro as the base\r\n        switch(cfCurrency){\r\n            case \"USD\":\r\n                conRate = amountDouble/USD_Rate;\r\n                break;\r\n            case \"AUD\":\r\n                conRate = amountDouble/AUD_Rate;\r\n                break;\r\n            case \"GBP\":\r\n                conRate = amountDouble/GBP_Rate;\r\n                break;\r\n            case \"CAD\":\r\n                conRate = amountDouble/CAD_Rate;\r\n                break;\r\n            case \"INR\":\r\n                conRate = amountDouble/INR_Rate;\r\n                break;\r\n            case \"JPY\":\r\n                conRate = amountDouble/JPY_Rate;\r\n                break;\r\n            case \"SGD\":\r\n                conRate = amountDouble/SGD_Rate;\r\n                break;\r\n            default:\r\n                conRate = amountDouble; //if nothing else then the cfCurrency is EUR, which need not be converted\r\n        }\r\n\r\n        Log.i(\"conRATe\", String.valueOf(conRate));\r\n        Log.i(\"ToCurrency\", String.valueOf(ToCurrency));\r\n        Log.i(\"amountDouble\", String.valueOf(amountDouble));\r\n\r\n        //using the converted euro rate(conRate) the entered amount to be converted is changed to the respective required currency\r\n        switch(ToCurrency){\r\n            case \"USD\":\r\n                displayAmt = conRate*USD_Rate;\r\n                break;\r\n            case \"AUD\":\r\n                displayAmt = conRate*AUD_Rate;\r\n                break;\r\n            case \"GBP\":\r\n                displayAmt = conRate*GBP_Rate;\r\n                break;\r\n            case \"CAD\":\r\n                displayAmt = conRate*CAD_Rate;\r\n                break;\r\n            case \"INR\":\r\n                displayAmt = conRate*INR_Rate;\r\n                break;\r\n            case \"JPY\":\r\n                displayAmt = conRate*JPY_Rate;\r\n                break;\r\n            case \"SGD\":\r\n                displayAmt = conRate*SGD_Rate;\r\n                break;\r\n            default:\r\n                displayAmt = conRate;\r\n                break;\r\n        }\r\n        String strDouble = String.format(\"%.2f\", displayAmt);\r\n        double resultAmount = Double.parseDouble(strDouble);\r\n\r\n        Toast.makeText(Currency_Conversion.this,String.valueOf(resultAmount),Toast.LENGTH_LONG).show();\r\n\r\n        DBManager DBManagerOBJ = new DBManager(this);\r\n        DBManagerOBJ.open();\r\n        int TestVal = 2;\r\n        DBManagerOBJ.insertSearch(cfCurrency,ToCurrency,amountDouble,resultAmount);\r\n\r\n\r\n    }\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.currency_dropdown);\r\n\r\n\r\n\r\n        convertfromCountry = findViewById(R.id.convertFromCountry);\r\n        conertfromCurrency = findViewById(R.id.convertFromCurrency);\r\n        convertfromFlag = findViewById(R.id.convertFromFlag);\r\n\r\n        Intent intent = getIntent();\r\n        cfCurrency = intent.getStringExtra(\"currency\");\r\n        convertfromCountry.setText(intent.getStringExtra(\"country\"));\r\n        conertfromCurrency.setText(cfCurrency);\r\n        convertfromFlag.setImageResource(intent.getIntExtra(\"flag\",0));\r\n\r\n        Spinner mySpinner = findViewById(R.id.spinner1);\r\n        ArrayAdapter<String> myAdapter= new ArrayAdapter(Currency_Conversion.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.currencies));\r\n\r\n        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);\r\n        mySpinner.setAdapter(myAdapter);\r\n        fetchData fDataobj =  new fetchData();\r\n        fDataobj.execute();\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/currencyconverter/Currency_Conversion.java	(revision 220c6f89dd7d80c15a5b0dec87353cf33926d27d)
++++ app/src/main/java/com/example/currencyconverter/Currency_Conversion.java	(date 1586560531983)
+@@ -2,7 +2,9 @@
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+ 
++import android.content.Context;
+ import android.content.Intent;
++import android.content.SharedPreferences;
+ import android.os.Bundle;
+ import android.util.Log;
+ import android.view.View;
+@@ -21,7 +23,16 @@
+  */
+ 
+ public class Currency_Conversion extends AppCompatActivity {
+-
++//
++//    EditText AmtToConvert;
++//    Spinner Spinner1;
++//    TextView Result;
++//
++//    SharedPreferences sharedPreferences;
++//    static final String mypreference = "mypref";
++//    static final String amountToConvert = "amountkey";
++//    static final String spinner1 = "spinnerKey";
++//    static final String result = "resultKey";
+ 
+     String rates; //to store the jason object rates
+     double conRate; //to store the calculated eur rate
+@@ -142,7 +153,21 @@
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.currency_dropdown);
+-
++//
++//        AmtToConvert = (EditText) findViewById(R.id.amountToConvert);
++////        Spinner1 = (Spinner) findViewById(R.id.spinner1);
++////        Result = (TextView) findViewById(R.id.result);
++//
++//        sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
++////        if (sharedPreferences.contains(String.valueOf(AmtToConvert))) {
++////            String.valueOf(amountToConvert).compareTo(sharedPreferences.getString(String.valueOf(AmtToConvert), ""));
++////        }
++////        if (sharedPreferences.contains(String.valueOf(Spinner1))) {
++////            spinner1.compareTo(sharedPreferences.getString(String.valueOf(Spinner1), ""));
++////        }
++//        if (sharedPreferences.contains(String.valueOf(Result))) {
++//            result.compareTo(sharedPreferences.getString(String.valueOf(Result), ""));
++//        }
+ 
+ 
+         convertfromCountry = findViewById(R.id.convertFromCountry);
+@@ -164,4 +189,7 @@
+         fDataobj.execute();
+ 
+     }
++
++
++
+ }
+\ No newline at end of file
