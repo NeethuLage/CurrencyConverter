@@ -35,10 +35,10 @@ public class fetchData extends AsyncTask<Void, Integer ,Void> {
         progbar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progbar.setProgressStyle(0);
         progbar.setMax(100);
-        progbar.setMessage(getString(R.string.Progessbar));
+        progbar.setMessage(getString(R.string.Progressbar));
 
         // make a button.
-        progbar.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), new DialogInterface.OnClickListener() {
+        progbar.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.Cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }

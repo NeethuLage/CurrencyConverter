@@ -3,7 +3,8 @@
     <string name="Convert">CONVERT</string>
     <string name="enter_amount">Enter the amount</string>
     <string name="Convert_To">Convert to</string>
-    <string name="Convertbtn"></string>
+    <string name="Cancel"> Cancel</string>
+    <string name="Progressbar">Processing.....</string>
     <string-array name="currencies">
 
         <item>USD</item>
