@@ -36,11 +36,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> list;
+    EditText editText;
+    Button btnadd, btndel;
     ArrayAdapter<String> arrayAdapter;
     ListView listview;
     private DBManager dbManager;
 
-    Toolbar toolbar; //for toolbar
+
 
     //array for flag images
     int [] images = {R.drawable.aus, R.drawable.cad, R.drawable.euro,  R.drawable.bri, R.drawable.ind,
