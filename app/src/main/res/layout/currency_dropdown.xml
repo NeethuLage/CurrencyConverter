@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:id="@+id/mainLayout">
+
     <RelativeLayout
         android:id="@+id/convertFromLayout"
         android:layout_width="wrap_content"
@@ -16,14 +17,14 @@
             android:id="@+id/convertFromFlag"
             android:layout_width="58dp"
             android:layout_height="56dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             app:srcCompat="@drawable/euro" />
 
         <TextView
             android:id="@+id/convertFromCountry"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/convertFromFlag"
             android:text="TextView"
             android:textColor="#000000"
@@ -43,64 +44,75 @@
 
         <EditText
             android:id="@+id/amountToConvert"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="25sp"
             android:layout_marginRight="20dp"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textColor="#000000"
             android:hint="Enter the amount"
             android:inputType="number"
             />
-
     </RelativeLayout>
 
 
     <TextView
         android:id="@+id/convertto"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_below="@id/convertFromLayout"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="9dp"
         android:inputType="number"
         android:textColor="#000000"
         android:text="@string/Convert_To"
-        android:textSize="15sp" />
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="211dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_below="@id/convertFromLayout"
+        android:layout_alignParentTop="true"
         android:layout_centerInParent="false"
-        android:layout_marginTop="25sp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="97dp"
         android:layout_toRightOf="@+id/convertto"
         android:spinnerMode="dropdown"
-        android:visibility="visible" />
-
+        android:textSize="20sp"
+        android:visibility="visible"
+        tools:layout_below="@id/convertto"/>
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/convertto"
-        android:layout_marginTop="20sp"
+        android:layout_below="@id/spinner1"
         android:layout_centerHorizontal="true"
         android:onClick="convert"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:text="@string/Convert"/>
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+
+
+
+    <fragment
+        android:name="com.example.currencyconverter.FragmentBegin"
+        android:id="@+id/fragmentResult"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button"
-        android:layout_marginTop="20sp"
+        android:layout_below="@id/divider"
         android:layout_centerHorizontal="true"
-        android:onClick="History"
-        android:textSize="30sp"
-        android:text="History"
         />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/button"
+        android:background="?android:attr/listDivider" />
+
+
 
 </RelativeLayout>

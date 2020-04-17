@@ -34,7 +34,7 @@ public class ConversionFav1 extends AppCompatActivity {
     private void populateListHist()
     {
         //fetching data from DBManager
-        Cursor CursorData = DBMangerObj.fetch();
+        Cursor CursorData = DBMangerObj.fetchFav();
         String fromCurrency,toCurrency;
 
         ConverList = new ArrayList<>();

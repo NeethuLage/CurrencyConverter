@@ -58,4 +58,17 @@
         android:textSize="20sp" />
 
 
+    <Button
+        android:id="@+id/FavouriteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="138dp"
+        android:onClick="SaveAsFavourite"
+        android:text="Add to Favourites"
+        android:textColor="#FF4C4C"
+        android:textSize="20sp" />
+
 </RelativeLayout>

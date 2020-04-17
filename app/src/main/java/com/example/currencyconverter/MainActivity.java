@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listview;
     private DBManager dbManager;
 
+    Toolbar toolbar;
+
 
 
     //array for flag images
@@ -116,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.favorites:
                 msg="Favorites";
+                inte = new Intent(this, ConversionFav1.class);
+                startActivity(inte);
                 break;
             case R.id.history:
                 msg = "History";
@@ -124,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.search:
                 msg = "Search";
+                break;
+            case R.id.help:
+                msg = "Help";
                 break;
         }
         Toast.makeText(this, msg+" checked", Toast.LENGTH_LONG).show();

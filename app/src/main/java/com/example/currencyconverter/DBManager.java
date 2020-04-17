@@ -49,6 +49,23 @@ public class DBManager {
     }
 
 
+    public boolean insertFav(String frCurrency, String toCurrency) {
+
+        ContentValues contentValue = new ContentValues();
+        contentValue.put(DatabaseHelper.FROMCURRENCY, frCurrency);
+        contentValue.put(DatabaseHelper.TOCURRENCY, toCurrency);
+        long result = database.insert(DatabaseHelper.TABLE_NAME1, null, contentValue);
+        Log.d("Count==>", "Insert Done "+result);
+
+        if(result == -1) {
+            return false;
+        }else{
+            return true;
+
+        }
+    }
+
+
 
 
     //fetch from DatabaseHelper
@@ -64,6 +81,18 @@ public class DBManager {
         return cursor;
     }
 
+    //fetch from DatabaseHelper
+    public Cursor fetchFav() {
+        String[] columns = new String[] { DatabaseHelper.ID, DatabaseHelper.FROMCURRENCY, DatabaseHelper.TOCURRENCY};
+        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME1, columns, null, null, null, null, DatabaseHelper.ID +" DESC" );
+
+
+        if (cursor != null) {
+            Log.d("Count==>", String.valueOf(cursor.getCount()));
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
     //update the values
     public int update(int id, String conFromCurren, String conToCurren, double conFromAmt, double resut) {
         ContentValues contentValues = new ContentValues();

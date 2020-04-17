@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".Currency_Conversion"/>
         <activity android:name=".ConversionHistory"/>
+        <activity android:name=".ConversionFav1"/>
     </application>
 
 </manifest>

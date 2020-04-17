@@ -12,8 +12,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,7 +36,7 @@ public class Currency_Conversion extends AppCompatActivity {
       static final String FROM_CURRENCY_KEY = "FromCurrencyKey";
       static final String TO_CUURENCY_KEY = "ToCurrencyKey";
 
-      // for the mainactivity layout for snackbar
+      // for the mainactivity layout for toolbar
       RelativeLayout mainLayout;
 
     String rates; //to store the jason object rates
@@ -203,6 +208,21 @@ public class Currency_Conversion extends AppCompatActivity {
         Sharededitor.putString(TO_CUURENCY_KEY, ToCurrency);
         Sharededitor.commit();
 
+        Fragment fragment;
+
+        Bundle bundle = new Bundle();
+        bundle.putString("FromCurrencyKey",cfCurrency);
+        bundle.putString("ToCurrencyKey",ToCurrency);
+        bundle.putString("EnterAmtKey",String.valueOf(amountDouble));
+        bundle.putString("ResultAmtKey",String.valueOf(resultAmount));
+
+        fragment = new FragmentResult();
+        fragment.setArguments(bundle);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentResult, fragment,"Fragment");
+        transaction.commit();
+
         // Snackbar
 
         Snackbar.make(mainLayout, "Converted", Snackbar.LENGTH_LONG)
@@ -225,4 +245,13 @@ public class Currency_Conversion extends AppCompatActivity {
 
     }
 
+
+    public void SaveAsFavourite(View view) {
+        DBManager DBManagerOBJ = new DBManager(this);
+        DBManagerOBJ.open();
+        int TestVal = 2;
+        DBManagerOBJ.insertFav(cfCurrency,ToCurrency);
+        Intent intent = new Intent(getApplicationContext(), ConversionFav1.class);
+        startActivity(intent);
+    }
 }
