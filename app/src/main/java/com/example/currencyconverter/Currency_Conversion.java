@@ -1,7 +1,5 @@
 package com.example.currencyconverter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,9 +9,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +30,9 @@ public class Currency_Conversion extends AppCompatActivity {
       static final String AMT_KEY = "AmountKey";
       static final String FROM_CURRENCY_KEY = "FromCurrencyKey";
       static final String TO_CUURENCY_KEY = "ToCurrencyKey";
+
+      // for the mainactivity layout for snackbar
+      RelativeLayout mainLayout;
 
     String rates; //to store the jason object rates
     double conRate; //to store the calculated eur rate
@@ -44,11 +49,59 @@ public class Currency_Conversion extends AppCompatActivity {
     public static String fetData; // the variable that captures the values from the web api passed by the fetchData.java class
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.currency_dropdown);
 
+
+        convertfromCountry = findViewById(R.id.convertFromCountry);
+        conertfromCurrency = findViewById(R.id.convertFromCurrency);
+        convertfromFlag = findViewById(R.id.convertFromFlag);
+
+        mainLayout = findViewById(R.id.mainLayout);
+
+        Intent intent = getIntent();
+        cfCurrency = intent.getStringExtra("currency");
+        convertfromCountry.setText(intent.getStringExtra("country"));
+        conertfromCurrency.setText(cfCurrency);
+        convertfromFlag.setImageResource(intent.getIntExtra("flag",0));
+
+        Spinner mySpinner = findViewById(R.id.spinner1);
+        ArrayAdapter<String> myAdapter= new ArrayAdapter(Currency_Conversion.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.currencies));
+
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(myAdapter);
+        // HEAD
+        fetchData fDataobj =  new fetchData(Currency_Conversion.this);
+//
+
+        // Reading from SharedPreferences
+        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String AMT_KEY_STR = sharedPreferences.getString(AMT_KEY, "0");
+        // Log.i("DHDHDHHDD",AMT_KEY_STR);
+        String TO_CURRENCY_STR = sharedPreferences.getString(TO_CUURENCY_KEY, "USD");
+        EditText amountEntered = findViewById(R.id.amountToConvert);
+        amountEntered.setText(AMT_KEY_STR);
+
+        // Code to select the ToCurrency variable from the  Dropdown menu or spinner
+        Spinner SpinnerToCurrency = (Spinner) findViewById(R.id.spinner1);
+        for(int i=0; i < myAdapter.getCount(); i++) {
+            if(TO_CURRENCY_STR.trim().equals(myAdapter.getItem(i).toString())){
+                SpinnerToCurrency.setSelection(i);
+                break;
+            }
+        }
+
+
+        fetchData fDataobj1 =  new fetchData(Currency_Conversion.this);
+        //origin/master
+        fDataobj1.execute();
+
+    }
 
     //onclick function on convert button in R.layout.currency_dropdown
-    public void convert (View view){
-
+    public void convert(View v){
         EditText amountEntered= findViewById(R.id.amountToConvert);
         Spinner mySpinner = findViewById(R.id.spinner1);
         ToCurrency = mySpinner.getSelectedItem().toString();
@@ -136,7 +189,7 @@ public class Currency_Conversion extends AppCompatActivity {
         String strDouble = String.format("%.2f", displayAmt);
         double resultAmount = Double.parseDouble(strDouble);
 
-        Toast.makeText(Currency_Conversion.this,String.valueOf(resultAmount),Toast.LENGTH_LONG).show();
+//        Toast.makeText(Currency_Conversion.this,String.valueOf(resultAmount),Toast.LENGTH_LONG).show();
 
         DBManager DBManagerOBJ = new DBManager(this);
         DBManagerOBJ.open();
@@ -150,64 +203,26 @@ public class Currency_Conversion extends AppCompatActivity {
         Sharededitor.putString(TO_CUURENCY_KEY, ToCurrency);
         Sharededitor.commit();
 
+        // Snackbar
 
+        Snackbar.make(mainLayout, "Converted", Snackbar.LENGTH_LONG)
+                .setAction("Close", new View.OnClickListener(){
+
+
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .setActionTextColor(getResources().getColor(R.color.colorAccent))
+                .show();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.currency_dropdown);
 
-
-        convertfromCountry = findViewById(R.id.convertFromCountry);
-        conertfromCurrency = findViewById(R.id.convertFromCurrency);
-        convertfromFlag = findViewById(R.id.convertFromFlag);
-
-        Intent intent = getIntent();
-        cfCurrency = intent.getStringExtra("currency");
-        convertfromCountry.setText(intent.getStringExtra("country"));
-        conertfromCurrency.setText(cfCurrency);
-        convertfromFlag.setImageResource(intent.getIntExtra("flag",0));
-
-        Spinner mySpinner = findViewById(R.id.spinner1);
-        ArrayAdapter<String> myAdapter= new ArrayAdapter(Currency_Conversion.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.currencies));
-
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);
-<<<<<<< HEAD
-        fetchData fDataobj =  new fetchData(Currency_Conversion.this);
-=======
-
-        // Reading from SharedPreferences
-        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        String AMT_KEY_STR = sharedPreferences.getString(AMT_KEY, "0");
-       // Log.i("DHDHDHHDD",AMT_KEY_STR);
-        String TO_CURRENCY_STR = sharedPreferences.getString(TO_CUURENCY_KEY, "USD");
-        EditText amountEntered = findViewById(R.id.amountToConvert);
-        amountEntered.setText(AMT_KEY_STR);
-
-        // Code to select the ToCurrency variable from the  Dropdown menu or spinner
-        Spinner SpinnerToCurrency = (Spinner) findViewById(R.id.spinner1);
-        for(int i=0; i < myAdapter.getCount(); i++) {
-            if(TO_CURRENCY_STR.trim().equals(myAdapter.getItem(i).toString())){
-                SpinnerToCurrency.setSelection(i);
-                break;
-            }
-        }
-
-
-        fetchData fDataobj =  new fetchData();
->>>>>>> origin/master
-        fDataobj.execute();
-
-    }
 
     public void History(View view) {
         Intent intent = new Intent(getApplicationContext(), ConversionHistory.class);
         startActivity(intent);
 
     }
-
-
 
 }

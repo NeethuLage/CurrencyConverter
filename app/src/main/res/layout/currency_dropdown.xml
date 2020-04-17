@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@drawable/currency"
     tools:context=".Currency_Conversion"
-    >
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/mainLayout">
     <RelativeLayout
         android:id="@+id/convertFromLayout"
         android:layout_width="wrap_content"
@@ -90,8 +90,7 @@
         android:layout_centerHorizontal="true"
         android:onClick="convert"
         android:textSize="30sp"
-        android:text="@string/Convert"
-        />
+        android:text="@string/Convert"/>
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -103,8 +102,5 @@
         android:textSize="30sp"
         android:text="History"
         />
-
-
-
 
 </RelativeLayout>

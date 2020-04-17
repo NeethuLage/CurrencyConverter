@@ -60,12 +60,7 @@ public class MainActivity extends AppCompatActivity {
         listview = findViewById(R.id.listview);
         CustomAdapter adapter = new CustomAdapter();
         listview.setAdapter(adapter);
-        list=new ArrayList<String>();
 
-        btnadd = (Button) findViewById(R.id.add);
-        btndel = (Button) findViewById(R.id.del);
-
-        editText=(EditText) findViewById(R.id.search);
        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_expandable_list_item_1,list);
 
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,list);
@@ -87,41 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
-        });
-
-        // Adding items
-
-        final ArrayAdapter<String> finalArrayAdapter = arrayAdapter;
-        btnadd.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                String names=editText.getText().toString();
-                list.add(names);
-                listview.setAdapter(finalArrayAdapter);
-                finalArrayAdapter.notifyDataSetChanged();
-            }
-        });
-
-                // Deleting Items
-
-        final ArrayAdapter<String> finalArrayAdapter1 = arrayAdapter;
-        btndel.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                for(int i=0;i<list.size();i++){
-
-                    String getnames = editText.getText().toString();
-                    if(list.get(i).equals(getnames)){
-                        list.remove(i);
-                        finalArrayAdapter1.notifyDataSetChanged();
-                        break;
-                    }else
-                        Toast.makeText(MainActivity.this, "No Match Found!", Toast.LENGTH_SHORT).show();
-
-                }
-            }
         });
 
     }
