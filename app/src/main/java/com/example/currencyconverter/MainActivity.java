@@ -1,11 +1,15 @@
 package com.example.currencyconverter;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listview;
     private DBManager dbManager;
 
-
+    Toolbar toolbar; //for toolbar
 
     //array for flag images
     int [] images = {R.drawable.aus, R.drawable.cad, R.drawable.euro,  R.drawable.bri, R.drawable.ind,
@@ -52,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.currencylist);
+
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Currency Converter");
 
         //get data by the adapter
         listview = findViewById(R.id.listview);
@@ -86,6 +95,32 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    //adding the menubar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    //menubar messages
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        String msg = "";
+        switch (item.getItemId()){
+            case R.id.favorites:
+                msg="Favorites";
+                break;
+            case R.id.history:
+                msg = "History";
+                break;
+            case R.id.search:
+                msg = "Search";
+                break;
+        }
+        Toast.makeText(this, msg+" checked", Toast.LENGTH_LONG).show();
+        return super.onOptionsItemSelected(item);
     }
 
     class CustomAdapter extends BaseAdapter{
