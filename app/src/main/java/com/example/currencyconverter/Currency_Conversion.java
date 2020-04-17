@@ -1,6 +1,9 @@
 package com.example.currencyconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +20,10 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 /*
        converting the rates
  */
+
 
 public class Currency_Conversion extends AppCompatActivity {
 
@@ -140,7 +143,7 @@ public class Currency_Conversion extends AppCompatActivity {
         double resultAmount = Double.parseDouble(strDouble);
 
         //shows the converted currency value
-        Toast.makeText(Currency_Conversion.this,String.valueOf(resultAmount),Toast.LENGTH_LONG).show();
+        Toast.makeText(Currency_Conversion.this,"Conversion Successfull",Toast.LENGTH_LONG).show();
 
         //creating an object
         DBManager DBManagerOBJ = new DBManager(this);
@@ -155,6 +158,21 @@ public class Currency_Conversion extends AppCompatActivity {
         Sharededitor.putString(FROM_CURRENCY_KEY, cfCurrency);
         Sharededitor.putString(TO_CUURENCY_KEY, ToCurrency);
         Sharededitor.commit();
+
+        Fragment fragment;
+
+        Bundle bundle = new Bundle();
+        bundle.putString("FromCurrencyKey",cfCurrency);
+        bundle.putString("ToCurrencyKey",ToCurrency);
+        bundle.putString("EnterAmtKey",String.valueOf(amountDouble));
+        bundle.putString("ResultAmtKey",String.valueOf(resultAmount));
+
+        fragment = new FragmentResult();
+        fragment.setArguments(bundle);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentResult, fragment,"Fragment");
+        transaction.commit();
 
 
     }
