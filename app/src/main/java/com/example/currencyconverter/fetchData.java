@@ -26,7 +26,7 @@ public class fetchData extends AsyncTask<Void, Integer ,Void> {
         nContext = context;
     }
 
-    //runs befor the background method is called
+    //runs befor the background method is called.
     //setting up the progress bar
     @Override
     protected void onPreExecute() {

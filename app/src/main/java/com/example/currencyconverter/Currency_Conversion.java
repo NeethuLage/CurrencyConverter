@@ -204,7 +204,7 @@ public class Currency_Conversion extends AppCompatActivity {
             }
         }
 
-        //fetch data from Currency_Conversion
+        //fetch data from Currency_Conversion.
         fetchData fdata =  new fetchData(Currency_Conversion.this);
         fdata.execute();
 
