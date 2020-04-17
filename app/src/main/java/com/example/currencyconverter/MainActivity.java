@@ -3,6 +3,7 @@ package com.example.currencyconverter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
@@ -60,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Currency Converter");
+        getSupportActionBar().setTitle("     Currency Converter");
+        toolbar.setLogo(R.drawable.logo);
 
         //get data by the adapter
         listview = findViewById(R.id.listview);
@@ -108,12 +110,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         String msg = "";
+        Intent inte = new Intent();
         switch (item.getItemId()){
             case R.id.favorites:
                 msg="Favorites";
                 break;
             case R.id.history:
                 msg = "History";
+                inte = new Intent(this, ConversionHistory.class);
+                startActivity(inte);
                 break;
             case R.id.search:
                 msg = "Search";
