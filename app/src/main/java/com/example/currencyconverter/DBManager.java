@@ -11,14 +11,13 @@ import android.util.Log;
 public class DBManager {
 
     private DatabaseHelper dbHelper;
-
     private Context context;
-
     private SQLiteDatabase database;
 
     public DBManager(Context c) {
         context = c;
     }
+
 
     public DBManager open() throws SQLException {
         dbHelper = new DatabaseHelper(context);
@@ -52,6 +51,7 @@ public class DBManager {
 
 
 
+    //fetch from DatabaseHelper
     public Cursor fetch() {
         String[] columns = new String[] { DatabaseHelper.ID, DatabaseHelper.FROMCURRENCY, DatabaseHelper.TOCURRENCY, DatabaseHelper.AMOUNTENTERED , DatabaseHelper.RESULT };
         Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, columns, null, null, null, null, DatabaseHelper.ID +" DESC" );
@@ -64,6 +64,7 @@ public class DBManager {
         return cursor;
     }
 
+    //update the values
     public int update(int id, String conFromCurren, String conToCurren, double conFromAmt, double resut) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.FROMCURRENCY, conFromCurren);
@@ -73,6 +74,7 @@ public class DBManager {
         int i = database.update(DatabaseHelper.TABLE_NAME, contentValues, DatabaseHelper.ID + " = " + id, null);
         return i;
     }
+
 
     public void delete(long _id) {
         database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.ID + "=" + _id, null);

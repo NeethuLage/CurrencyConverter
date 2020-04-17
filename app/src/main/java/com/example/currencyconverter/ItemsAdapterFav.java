@@ -7,27 +7,26 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
-public class ItemsAdapter  extends ArrayAdapter<Conversion> {
+public class ItemsAdapterFav extends ArrayAdapter<Favorites> {
 
     public  String HeadingText,FromText,ToText;
 
 
 
-    public ItemsAdapter(Context context, ArrayList<Conversion> itemObj) {
+    public ItemsAdapterFav(Context context, ArrayList<Favorites> itemObj) {
         super(context, 0, itemObj);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        Conversion ConversionItem = getItem(position);
+        Favorites ConversionItem = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.itemhistory, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.itemfav, parent, false);
         }
         // Lookup view for data population
         TextView FromCurrencyName = (TextView) convertView.findViewById(R.id.FromCurrencyName);
@@ -36,8 +35,8 @@ public class ItemsAdapter  extends ArrayAdapter<Conversion> {
 
         //getting the values and inserting
         HeadingText = ConversionItem.fromCurrency +" => "+  ConversionItem.toCurrency;
-        FromText = ConversionItem.fromCurrency+":"+ConversionItem.EnteredAmount;
-        ToText = ConversionItem.toCurrency+":"+ConversionItem.ResultAmount;
+        FromText = ConversionItem.fromCurrency;
+        ToText = ConversionItem.toCurrency;
 
         // Populate the data into the template view using the data object
         FromCurrencyName.setText(FromText);

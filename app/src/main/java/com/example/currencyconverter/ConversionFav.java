@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class ConversionHistory extends AppCompatActivity {
+public class ConversionFav extends AppCompatActivity {
 
     ListView ConversionHistoryList;
     DBManager DBMangerObj;
@@ -18,7 +18,7 @@ public class ConversionHistory extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.conversionhistory);
+        setContentView(R.layout.conversionfav);
 
 
         ConversionHistoryList = findViewById(R.id.cclistview);

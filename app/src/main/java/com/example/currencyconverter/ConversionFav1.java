@@ -2,24 +2,23 @@ package com.example.currencyconverter;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class ConversionHistory extends AppCompatActivity {
+public class ConversionFav1 extends AppCompatActivity {
 
     ListView ConversionHistoryList;
     DBManager DBMangerObj;
-    private ArrayList<Conversion> ConverList;
+    private ArrayList<Favorites> ConverList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.conversionhistory);
-
+        setContentView(R.layout.conversionfav);
 
         ConversionHistoryList = findViewById(R.id.cclistview);
 
@@ -27,14 +26,17 @@ public class ConversionHistory extends AppCompatActivity {
         DBMangerObj = new DBManager(this);
         DBMangerObj.open();
         populateListHist();
+
+
+
     }
 
     private void populateListHist()
     {
         //fetching data from DBManager
-        Cursor CursorData = DBMangerObj.fetch();
+        Cursor CursorData = DBMangerObj.fetchFav();
         String fromCurrency,toCurrency;
-        double enteredAmt,resAmt;
+
         ConverList = new ArrayList<>();
 
         if (CursorData != null) {
@@ -42,16 +44,16 @@ public class ConversionHistory extends AppCompatActivity {
 
                 fromCurrency = CursorData.getString(CursorData.getColumnIndex(DatabaseHelper.FROMCURRENCY));
                 toCurrency = CursorData.getString(CursorData.getColumnIndex(DatabaseHelper.TOCURRENCY));
-                enteredAmt = CursorData.getDouble(CursorData.getColumnIndex(DatabaseHelper.AMOUNTENTERED));
-                resAmt = CursorData.getDouble(CursorData.getColumnIndex(DatabaseHelper.RESULT));
-                Conversion ConversionObj = new Conversion(fromCurrency,toCurrency,enteredAmt,resAmt);
+
+                Favorites ConversionObj = new Favorites(fromCurrency,toCurrency);
 
                 ConverList.add(ConversionObj);
                 CursorData.moveToNext();
             }
 
             //creating adapter object
-            ItemsAdapter adapter = new ItemsAdapter(this, ConverList);
+            ItemsAdapterFav adapter = new ItemsAdapterFav(this, ConverList);
+//           / ItemsAdapter adapter = new ItemsAdapter(this, ConverList);
 
             //retrieving from resources
             ListView listView = (ListView) findViewById(R.id.cclistview);
@@ -59,4 +61,5 @@ public class ConversionHistory extends AppCompatActivity {
         }
         //DBMangerObj
     }
+
 }

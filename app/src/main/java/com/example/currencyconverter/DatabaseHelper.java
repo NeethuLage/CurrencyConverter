@@ -1,9 +1,5 @@
 package com.example.currencyconverter;
 
-/**
- * Created by Amit Modak.
- */
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -37,6 +33,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE);
     }
 
+    //update database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
